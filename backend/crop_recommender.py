@@ -33,7 +33,7 @@ def recommend_crop(model, FEATURES, le, soil, weather, budget_fert=200, budget_i
 
         pred_yield = float(model.predict(dmat)[0])
 
-        # ✅ NORMALIZE yield by crop magnitude (prevents sugarcane domination)
+        
         crop_scale = {
             "wheat": 4,
             "rice": 5,
@@ -46,10 +46,8 @@ def recommend_crop(model, FEATURES, le, soil, weather, budget_fert=200, budget_i
 
         normalized_yield = pred_yield / crop_scale
 
-        # ✅ Soil suitability penalty
         soil_penalty = abs(6.5 - soil["soil_ph"]) * 0.2
 
-        # ✅ Final score
         score = normalized_yield - soil_penalty
 
         if score > best_score:
@@ -70,3 +68,4 @@ def recommend_crop(model, FEATURES, le, soil, weather, budget_fert=200, budget_i
             "K": soil["potassium_ppm"]
         }
     }
+
