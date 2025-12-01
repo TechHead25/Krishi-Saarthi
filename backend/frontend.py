@@ -21,13 +21,13 @@ from database import get_db, init_db
 app = FastAPI(title="Krishi Saarthi Backend")
 init_db()
 
-MODEL_PATH = r"C:\Projects\SIH\AI2\model\xgb_model.pkl"
+MODEL_PATH = "xgb_multi_crop.pkl"
 obj = joblib.load(MODEL_PATH)
 model, FEATURES, le = obj["model"], obj["features"], obj["label_encoder"]
 print("Loaded crops:", list(le.classes_))
 
 
-# 🟢 Updated Input Data model (added latitude + longitude)
+
 class InputData(BaseModel):
     crop: str
     location: str
@@ -54,10 +54,10 @@ class SignupRequest(BaseModel):
     phone: str
     password: str
     location: str
-# Dummy in-memory users (you can replace with DB later)
+
 
 def dummy_transcribe_audio(audio_bytes: bytes) -> str:
-    # TODO: integrate Whisper / Google STT / Vosk etc.
+  
     return "Voice transcription feature is not fully configured yet."
 
 
@@ -326,8 +326,7 @@ async def voice_chat(file: UploadFile = File(...)):
         audio_bytes = await file.read()
         text_question = dummy_transcribe_audio(audio_bytes)
 
-        # You can reuse your existing chat logic here:
-        # For now, we just echo + wrap with your chat endpoint style.
+      
         reply = f"I understood your voice question as: '{text_question}'. Please integrate real STT for production."
 
         return {
@@ -347,7 +346,7 @@ async def disease_detect(file: UploadFile = File(...)):
         img_bytes = await file.read()
         result = analyze_with_plant_id(img_bytes)
 
-        # ✅ Ensure result always has these keys
+     
         if "infected" not in result:
             return {
                 "infected": False,
@@ -380,3 +379,4 @@ def plant_test():
         "api_key_loaded": bool(PLANT_ID_API_KEY),
         "api_key_length": len(PLANT_ID_API_KEY) if PLANT_ID_API_KEY else 0
     }
+
