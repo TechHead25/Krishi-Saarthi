@@ -2,10 +2,7 @@
 
 import math
 
-# ============================
-# Mandi Database (30+ APMCs)
-# Price = per quintal (₹)
-# ============================
+
 
 MANDI_DB = [
     {"name": "Pune APMC", "lat": 18.5204, "lon": 73.8567,
@@ -96,13 +93,10 @@ MANDI_DB = [
      "prices": {"wheat": 2680, "rice": 2480, "maize": 2180, "soybean": 4550}}
 ]
 
-# Transport cost per km per ton (₹)
 TRANSPORT_COST_PER_KM_PER_TON = 25
 
 
-# -----------------------------------
-# Utility: Haversine Distance (km)
-# -----------------------------------
+
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371
     dlat = math.radians(lat2 - lat1)
@@ -115,9 +109,7 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * c
 
 
-# -----------------------------------
-# Main Function: Find Best Mandi
-# -----------------------------------
+
 def get_best_market(crop, farmer_lat, farmer_lon, yield_tons):
     results = []
 
@@ -141,7 +133,6 @@ def get_best_market(crop, farmer_lat, farmer_lon, yield_tons):
             "net_profit": round(net_profit, 2)
         })
 
-    # ✅ SAFETY: No market found for this crop
     if not results:
         return (
             {
@@ -158,3 +149,4 @@ def get_best_market(crop, farmer_lat, farmer_lon, yield_tons):
 
     best = max(results, key=lambda x: x["net_profit"])
     return best, results
+
