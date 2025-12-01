@@ -211,7 +211,7 @@ translations = {
 
 CROPS = ["wheat", "rice", "maize", "cotton", "sugarcane", "soybean", "groundnut"]
 if "mode" not in st.session_state:
-    st.session_state.mode = "login"   # login | admin | farmer
+    st.session_state.mode = "login"   
 
 if "auth" not in st.session_state:
     st.session_state.auth = {
@@ -468,11 +468,9 @@ def login_signup_screen():
 
     col_main, col_admin = st.columns([4, 1])
 
-    # ===== Farmer Login / Signup =====
     with col_main:
         tab_login, tab_signup = st.tabs(["Farmer Login", "Farmer Sign Up"])
 
-        # ---- FARMER LOGIN ----
         with tab_login:
             st.subheader("Farmer Login")
 
@@ -500,7 +498,6 @@ def login_signup_screen():
                 else:
                     st.error(data.get("detail", "Invalid username or password"))
 
-        # ---- FARMER SIGN UP ----
         with tab_signup:
             st.subheader("Create Farmer Account")
 
@@ -535,7 +532,7 @@ def login_signup_screen():
 
     # ===== SMALL ADMIN LOGIN BUTTON =====
     with col_admin:
-        st.markdown("### 🛡️ Admin")
+        st.markdown("###Admin")
         if st.button("Admin Login"):
             st.session_state.mode = "admin_login"
             st.rerun()
@@ -571,10 +568,10 @@ def section_predict():
             st.success(f"Predicted yield: {data['predicted_yield_t_per_ha']} t/ha")
             weather = data.get("weather_used", {})
             st.markdown("</div>", unsafe_allow_html=True)
-            st.write("")  # spacing
+            st.write("") 
             col_main, col_weather = st.columns([2, 1])
             with col_main:
-                pass  # already showed result above
+                pass  
             with col_weather:
                 show_weather_card(weather)
             return
@@ -710,7 +707,6 @@ def section_chat():
     user_msg = st.text_area(T["ai_question"], key="chat_text")
     crop = st.selectbox(T["crop_label"], CROPS, key="chat_crop")
 
-    # Simple inputs (you already simplified to fert + irr)
     fert, irr = soil_inputs("chat_")
 
     col1, col2, col3 = st.columns(3)
@@ -734,7 +730,7 @@ def section_chat():
                 "avg_temp_c": temp,
                 "humidity_pct": hum,
                 "rainfall_mm": rain,
-                "lang": T  # you can send language info if backend uses it
+                "lang": T  
             }
             data = post_json("/chat", payload)
             if data:
@@ -881,7 +877,7 @@ def section_disease():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def admin_login_screen():
-    st.title("🛡️ Admin Login")
+    st.title("Admin Login")
 
     username = st.text_input("Admin Username", key="admin_user")
     password = st.text_input("Admin Password", type="password", key="admin_pass")
@@ -897,7 +893,7 @@ def admin_login_screen():
             return
 
         if r.status_code == 200:
-            st.success("✅ Admin Login Successful")
+            st.success("Admin Login Successful")
             st.session_state.mode = "admin"
             st.rerun()
         else:
@@ -934,7 +930,7 @@ def main():
 
     # ===== LANGUAGE SELECTOR =====
     st.sidebar.selectbox(
-        "🌐 Language / भाषा / ಭಾಷೆ / భాష",
+        "Language / भाषा / ಭಾಷೆ / భాష",
         ["en", "hi", "kn", "te"],
         index=["en", "hi", "kn", "te"].index(st.session_state.lang),
         key="lang_select",
@@ -958,7 +954,7 @@ def main():
     if st.session_state.mode == "admin":
         admin_dashboard()
 
-        if st.button("🚪 Admin Logout"):
+        if st.button("Admin Logout"):
             st.session_state.mode = "login"
             st.rerun()
         return
@@ -966,7 +962,7 @@ def main():
     # ========= FARMER DASHBOARD =========
     if st.session_state.mode == "farmer":
 
-        st.sidebar.title("📋 Farmer Menu")
+        st.sidebar.title("Farmer Menu")
 
         page = st.sidebar.radio(
             "Go to",
@@ -1001,3 +997,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
