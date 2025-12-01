@@ -12,7 +12,7 @@ def analyze_with_plant_id(image_bytes: bytes):
 
     encoded = base64.b64encode(image_bytes).decode("utf-8")
 
-    url =  "https://crop.kindwise.com/api/v1/identification"   # ✅ NEW OFFICIAL ENDPOINT
+    url =  "https://crop.kindwise.com/api/v1/identification"   
 
     headers = {
         "Api-Key": PLANT_ID_API_KEY,
@@ -27,8 +27,7 @@ def analyze_with_plant_id(image_bytes: bytes):
     response = requests.post(url, json=payload, headers=headers, timeout=60)
 
     print("PLANT STATUS:", response.status_code)
-    print("PLANT RAW TEXT:", response.text[:500])   # ✅ FIRST 500 CHARS ONLY
-
+    print("PLANT RAW TEXT:", response.text[:500])  
     try:
         data = response.json()
     except Exception:
@@ -41,7 +40,6 @@ def analyze_with_plant_id(image_bytes: bytes):
     healthy = assessment["is_healthy"]["binary"]
     prob = assessment["is_healthy"]["probability"]
 
-    # ✅ Healthy case
     if healthy:
         return {
             "infected": False,
@@ -67,3 +65,4 @@ def analyze_with_plant_id(image_bytes: bytes):
         "prevention": disease.get("prevention", "Follow crop rotation and avoid leaf wetness."),
         "confidence": round((1 - prob) * 100, 2)
     }
+
