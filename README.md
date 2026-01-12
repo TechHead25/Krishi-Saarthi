@@ -7,6 +7,14 @@ The system is designed to be **simple, scalable, and accessible**, ensuring that
 
 ---
 
+**Project Description**
+
+Krishi Saarthi is an AI-powered agricultural advisory system designed to support farmers in making better farming decisions. The platform provides intelligent recommendations for crop selection, yield prediction, fertilizer and irrigation optimization, disease detection, and market selection using machine learning and real-time data.
+By combining weather information, crop data, and user inputs, the system helps farmers improve productivity, reduce resource wastage, and increase income. The platform also includes a voice-based AI assistant and multilingual support to overcome literacy and language barriers, making it accessible to a wider farming community.
+Krishi Saarthi aims to promote sustainable farming practices and empower farmers with easy-to-use, data-driven insights through a simple and user-friendly digital interface.
+
+---
+
  Features
 
   Farmer Module
